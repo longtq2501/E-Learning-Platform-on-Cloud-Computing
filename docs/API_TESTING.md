@@ -11,9 +11,27 @@ http://localhost/swagger-ui/index.html
 1. Open `POST /api/auth/login`.
 2. Use an existing admin or student account and execute the request.
 3. Copy `data.accessToken` from the response.
-4. Select **Authorize** in Swagger UI.
-5. Enter the token as `Bearer <accessToken>` and select **Authorize**.
-6. Execute protected endpoints from the UI.
+4. Scroll to the top of Swagger UI and select the **Authorize** button with the lock icon.
+5. Paste only the raw token value, without the word `Bearer`:
+
+	```text
+	eyJhbGciOiJIUzI1NiJ9...
+	```
+
+6. Select **Authorize**, then **Close**.
+7. Execute protected endpoints from the UI. Swagger will automatically send:
+
+	```text
+	Authorization: Bearer <accessToken>
+	```
+
+### Which token should be used?
+
+- Student token: browse catalog, download/stream content, submit feedback.
+- Admin token: access dashboard, user list, feedback admin list, and CRUD/upload endpoints.
+- A student token correctly receives `403` on admin-only endpoints.
+
+If the **Authorize** button is not visible, reload `http://localhost/swagger-ui/index.html` and scroll to the very top of the page. The lock icons beside operations only indicate that the operation has a security requirement; they are not the input field.
 
 ## Recommended smoke test
 
