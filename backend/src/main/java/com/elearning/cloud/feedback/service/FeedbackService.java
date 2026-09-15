@@ -61,4 +61,8 @@ public class FeedbackService {
         Page<Feedback> feedbacks = feedbackRepository.findByTargetTypeAndTargetId(targetType, targetId, pageable);
         return feedbacks.map(FeedbackResponse::fromEntity);
     }
+
+    public Page<FeedbackResponse> getAllFeedbacks(Pageable pageable) {
+        return feedbackRepository.findAll(pageable).map(FeedbackResponse::fromEntity);
+    }
 }

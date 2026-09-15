@@ -25,7 +25,7 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
     public ResponseEntity<ApiResponse<FeedbackResponse>> submitFeedback(
             @RequestBody @Valid FeedbackRequest request,
             Authentication authentication) {
@@ -33,6 +33,12 @@ public class FeedbackController {
         FeedbackResponse response = feedbackService.submitFeedback(username, request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Feedback submitted successfully", response));
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Page<FeedbackResponse>>> getAllFeedbacks(Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(feedbackService.getAllFeedbacks(pageable)));
     }
 
     @GetMapping

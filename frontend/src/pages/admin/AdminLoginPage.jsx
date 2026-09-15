@@ -25,7 +25,7 @@ export const AdminLoginPage = () => {
     setLoading(true);
     try {
       const user = await login(email, password);
-      if (user.role !== 'ROLE_ADMIN') {
+      if (user.role !== 'ADMIN') {
         showError('Access denied: Account is not an administrator');
         setLoading(false);
         return;

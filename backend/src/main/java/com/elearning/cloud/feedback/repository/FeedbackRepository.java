@@ -18,5 +18,9 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
     @Override
     @EntityGraph(attributePaths = {"user"})
+    Page<Feedback> findAll(Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"user"})
     Optional<Feedback> findById(Long id);
 }
