@@ -7,11 +7,11 @@
 | | 0.3 | Cấu hình Docker Compose: Postgres + MinIO | Done | `7790d7a` | `infra(compose): add postgres and minio services` |
 | | 0.4 | Dockerize backend + ghép vào Docker Compose | Done | `c182006` | `infra(docker): containerize backend service` |
 
-| **Phase 1** | 1.1 | Entity User + Repository + Schema | Planned | - | `feat(auth): add user entity and repository` |
-| | 1.2 | Register & Login endpoints (BCrypt, JWT) | Planned | - | `feat(auth): implement register and login endpoints` |
-| | 1.3 | Spring Security Filter Chain JWT Stateless | Planned | - | `feat(auth): configure jwt security filter chain` |
-| | 1.4 | Phân quyền RBAC (@PreAuthorize) | Planned | - | `feat(auth): add role-based access control` |
-| | 1.5 | Unit tests AuthService | Planned | - | `test(auth): add unit tests for auth service` |
+| **Phase 1** | 1.1 | Entity User + Repository + Schema | Done | `939fa89` | `feat(auth): add user entity and repository` |
+| | 1.2 | Register & Login endpoints (BCrypt, JWT) | Done | `d0e3cc5` | `feat(auth): implement register and login endpoints` |
+| | 1.3 | Spring Security Filter Chain JWT Stateless | Done | `f3de5f1` | `feat(auth): configure jwt security filter chain` |
+| | 1.4 | Phân quyền RBAC (@PreAuthorize) | Done | `3770c4c` | `feat(auth): add role-based access control` |
+| | 1.5 | Unit tests AuthService | Done | `0a05f65` | `test(auth): add unit tests for auth service` |
 | **Phase 2** | 2.1 | Entity Category + CRUD API | Planned | - | `feat(catalog): add category entity and crud api` |
 | | 2.2 | Entity Book + CRUD metadata | Planned | - | `feat(catalog): add book entity and metadata crud` |
 | | 2.3 | Entity Video + CRUD metadata | Planned | - | `feat(catalog): add video entity and metadata crud` |

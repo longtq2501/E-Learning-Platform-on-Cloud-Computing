@@ -27,3 +27,17 @@ Tài liệu này lưu trữ các quyết định kiến trúc và giả định 
   - Postgres chỉ lưu metadata (id, title, storage_object_key, file_size...).
   - File nhị phân lưu trực tiếp trên MinIO bucket (`elearning-media`).
   - Xoá record trong DB không tự xoá file trên MinIO và ngược lại (lifecycle quản lý độc lập).
+
+---
+
+## ADR-003: Stateless Authentication với JWT & RBAC
+- **Ngày**: 2026-09-15
+- **Trạng thái**: Đã duyệt
+- **Bối cảnh**: Để chuẩn bị cho việc horizontal scaling ở Phase 5 (chạy 3 instances backend sau load balancer), backend bắt buộc phải stateless (không sử dụng HTTP session).
+- **Quyết định**:
+  - Dùng Spring Security filter chain với `SessionCreationPolicy.STATELESS`.
+  - Token JWT sinh theo chuẩn HMAC-SHA256 (jjwt), mang claims email và expiration.
+  - Phân quyền theo Role-Based Access Control (`ROLE_STUDENT`, `ROLE_ADMIN`) qua annotation `@PreAuthorize`.
+  - Mọi response API tuân theo format bọc thống nhất `ApiResponse<T>`.
+  - Cấu hình JPA Auditing tách riêng (`JpaConfig`) khỏi `@SpringBootApplication` để tránh slice-test context pollution trong `@WebMvcTest`.
+
