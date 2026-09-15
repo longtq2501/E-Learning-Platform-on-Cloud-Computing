@@ -21,12 +21,18 @@
 | **Phase 3** | 3.1 | Full-text search PostgreSQL `tsvector` | Done | `4ca0653` | `feat(search): add postgres full-text search endpoint` |
 | | 3.2 | Entity Feedback + API gửi/xem feedback | Done | `de06cf4` | `feat(feedback): add feedback entity and endpoints` |
 | | 3.3 | Thống kê lượt xem/tải | Done | `de06cf4` | `feat(admin): add view and download stats tracking` |
-| **Phase 4** | 4.1 | Khởi tạo React Vite + Routing + Axios | Planned | - | `chore(frontend): bootstrap react app with routing` |
-| | 4.2 | Trang Đăng ký / Đăng nhập + JWT auth context | Planned | - | `feat(frontend): add login and register pages` |
-| | 4.3 | Trang danh sách sách/video + tìm kiếm | Planned | - | `feat(frontend): add book and video listing with search` |
-| | 4.4 | Trang chi tiết sách/video + tải & streaming | Planned | - | `feat(frontend): add detail page with download and streaming` |
-| | 4.5 | Trang Admin quản lý nội dung & thống kê | Planned | - | `feat(frontend): add admin panel for content management` |
-| | 4.6 | Form gửi feedback | Planned | - | `feat(frontend): add feedback form` |
+| **Phase 4 (Branch A)** | 4.1.A | Navigation, Auth context, Login/Register cho Student | Planned | - | `feat(frontend): add student auth and shell` |
+| | 4.2.A | Trang danh sách sách/video + tìm kiếm tsvector | Planned | - | `feat(frontend): add book and video listing with search` |
+| | 4.3.A | Trang chi tiết sách + tải qua MinIO Presigned URL | Planned | - | `feat(frontend): add book detail and presigned download` |
+| | 4.4.A | Trang chi tiết video + player streaming Presigned URL | Planned | - | `feat(frontend): add video detail and presigned streaming` |
+| | 4.5.A | Form gửi feedback cho sinh viên | Planned | - | `feat(frontend): add student feedback form` |
+| **Phase 4 (Branch B)** | 4.1.B | Khởi tạo React Vite + Router + Axios JWT interceptor + AdminGuard | Done | `branch:phase/4-branch-b-admin` | `feat(admin): bootstrap admin shell, router, and auth guard` |
+| | 4.2.B | Dashboard KPI, thống kê lượt xem/tải, telemetry kiến trúc cloud | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement dashboard overview and metrics` |
+| | 4.3.B | Quản lý Category CRUD + tìm kiếm | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement category crud management` |
+| | 4.4.B | Quản lý Book metadata CRUD + Upload PDF trực tiếp MinIO | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement book metadata crud and pdf upload to minio` |
+| | 4.5.B | Quản lý Video metadata CRUD + Upload MP4 MinIO + Stream Preview | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement video metadata crud and mp4 upload with preview` |
+| | 4.6.B | Danh sách phản hồi feedback của sinh viên | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement feedback inspection` |
+| | 4.7.B | Quản lý danh sách người dùng và phân quyền RBAC | Done | `branch:phase/4-branch-b-admin` | `feat(admin): implement user directory and role inspection` |
 | **Phase 5** | 5.1 | Dockerfile Backend hoàn thiện | Done | `2503100` | `infra(docker): finalize production-style backend image` |
 | | 5.2 | Docker Compose 3 backend instances + Nginx + Frontend | Done | `0c21150` | Frontend integration deferred to Phase 4; `infra(compose): add multi-instance backend and nginx load balancer` |
 | | 5.3 | Nginx cấu hình load balancing Round-Robin | Done | `ac2f9df` | `infra(nginx): configure load balancing across backend instances` |
