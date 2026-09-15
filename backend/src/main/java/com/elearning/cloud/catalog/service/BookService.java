@@ -22,6 +22,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
+    private final com.elearning.cloud.storage.service.StorageService storageService;
 
     public List<BookResponse> getAllBooks(Long categoryId) {
         List<Book> books;
@@ -81,5 +82,20 @@ public class BookService {
         }
         bookRepository.deleteById(id);
         log.info("Deleted book id: {}", id);
+    }
+
+    @Transactional
+    public BookResponse uploadBookFile(Long id, org.springframework.web.multipart.MultipartFile file) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+
+        String objectKey = storageService.uploadFile(file, "books");
+        book.setStorageObjectKey(objectKey);
+        book.setFileSize(file.getSize());
+        book.setContentType(file.getContentType() != null ? file.getContentType() : "application/pdf");
+
+        Book saved = bookRepository.save(book);
+        log.info("Uploaded file for book id: {}, objectKey: {}", id, objectKey);
+        return BookResponse.fromEntity(saved);
     }
 }

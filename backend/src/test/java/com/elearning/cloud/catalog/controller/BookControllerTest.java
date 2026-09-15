@@ -164,4 +164,36 @@ class BookControllerTest {
 
         verify(bookService).deleteBook(1L);
     }
+
+    @Test
+    @WithMockUser(username = "admin@test.com", roles = {"ADMIN"})
+    void uploadBookFile_WhenAdmin_ShouldReturn200() throws Exception {
+        org.springframework.mock.web.MockMultipartFile file = new org.springframework.mock.web.MockMultipartFile(
+                "file", "test.pdf", "application/pdf", "dummy pdf content".getBytes()
+        );
+
+        BookResponse response = BookResponse.builder()
+                .id(1L)
+                .title("Sample Book")
+                .storageObjectKey("books/uuid.pdf")
+                .build();
+
+        when(bookService.uploadBookFile(eq(1L), any())).thenReturn(response);
+
+        mockMvc.perform(multipart("/api/books/1/upload").file(file))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.storageObjectKey").value("books/uuid.pdf"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void uploadBookFile_WhenStudent_ShouldReturn403() throws Exception {
+        org.springframework.mock.web.MockMultipartFile file = new org.springframework.mock.web.MockMultipartFile(
+                "file", "test.pdf", "application/pdf", "dummy pdf content".getBytes()
+        );
+
+        mockMvc.perform(multipart("/api/books/1/upload").file(file))
+                .andExpect(status().isForbidden());
+    }
 }

@@ -57,4 +57,13 @@ public class BookController {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/{id}/upload", consumes = org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<BookResponse>> uploadBookFile(
+            @PathVariable Long id,
+            @RequestParam("file") org.springframework.web.multipart.MultipartFile file) {
+        BookResponse response = bookService.uploadBookFile(id, file);
+        return ResponseEntity.ok(ApiResponse.success("File uploaded successfully", response));
+    }
 }
