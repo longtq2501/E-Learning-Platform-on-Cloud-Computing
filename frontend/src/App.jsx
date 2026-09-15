@@ -12,6 +12,11 @@ import { VideosPage } from './pages/admin/VideosPage';
 import { FeedbackPage } from './pages/admin/FeedbackPage';
 import { UsersPage } from './pages/admin/UsersPage';
 import { ShieldIcon, ServerIcon, CloudIcon } from './components/common/Icons';
+import { AuthProvider as StudentAuthProvider, ProtectedRoute as StudentProtectedRoute } from './auth.tsx';
+import { LoginPage } from './pages/LoginPage.tsx';
+import { RegisterPage } from './pages/RegisterPage.tsx';
+import { StudentHomePage } from './pages/student/StudentHomePage.tsx';
+import { StudentDetailPage } from './pages/student/StudentDetailPage.tsx';
 
 // Placeholder / Hub landing page maintaining clean boundary with Branch A
 const LandingPortalHub = () => {
@@ -96,6 +101,12 @@ export const App = () => {
 
             {/* Admin Login */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
+
+            {/* Student flow from Phase 4 Branch A */}
+            <Route path="/login" element={<StudentAuthProvider><LoginPage /></StudentAuthProvider>} />
+            <Route path="/register" element={<StudentAuthProvider><RegisterPage /></StudentAuthProvider>} />
+            <Route path="/student" element={<StudentAuthProvider><StudentProtectedRoute><StudentHomePage /></StudentProtectedRoute></StudentAuthProvider>} />
+            <Route path="/student/:type/:id" element={<StudentAuthProvider><StudentProtectedRoute><StudentDetailPage /></StudentProtectedRoute></StudentAuthProvider>} />
 
             {/* Protected Admin Routes */}
             <Route
