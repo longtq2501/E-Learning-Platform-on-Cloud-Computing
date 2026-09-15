@@ -3,6 +3,7 @@ package com.elearning.cloud.controller;
 import com.elearning.cloud.auth.filter.JwtAuthenticationFilter;
 import com.elearning.cloud.auth.service.JwtService;
 import com.elearning.cloud.config.SecurityConfig;
+import com.elearning.cloud.common.filter.InstanceIdFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,11 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(com.elearning.cloud.controller.HealthController.class)
-@Import({SecurityConfig.class, JwtAuthenticationFilter.class})
+@Import({SecurityConfig.class, JwtAuthenticationFilter.class, InstanceIdFilter.class})
 @org.springframework.test.context.TestPropertySource(properties = {
     "jwt.secret=bXktdmVyeS1zZWN1cmUtc2VjcmV0LWtleS10aGF0LWlzLWF0LWxlYXN0LTI1Ni1iaXRz",
     "jwt.expiration=86400000",
-    "app.cors.allowed-origins=http://localhost:5173"
+    "app.cors.allowed-origins=http://localhost:5173",
+    "app.instance-id=test-instance"
 })
 class HealthControllerTest {
 
@@ -37,6 +39,8 @@ class HealthControllerTest {
     void healthCheckShouldReturnStatusUp() throws Exception {
         mockMvc.perform(get("/api/health"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("UP"));
+                .andExpect(jsonPath("$.status").value("UP"))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.header()
+                        .string("X-Instance-Id", "test-instance"));
     }
 }
