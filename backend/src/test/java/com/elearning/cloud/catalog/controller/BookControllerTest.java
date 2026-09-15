@@ -196,4 +196,27 @@ class BookControllerTest {
         mockMvc.perform(multipart("/api/books/1/upload").file(file))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void getDownloadUrl_WhenFileExists_ShouldReturn200WithUrl() throws Exception {
+        when(bookService.getBookDownloadUrl(1L))
+                .thenReturn("http://localhost:9000/media/books/test.pdf?sig=abc");
+
+        mockMvc.perform(get("/api/books/1/download-url"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.downloadUrl").value("http://localhost:9000/media/books/test.pdf?sig=abc"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void getDownloadUrl_WhenNoFileAttached_ShouldReturn404() throws Exception {
+        when(bookService.getBookDownloadUrl(1L))
+                .thenThrow(new ResourceNotFoundException("Book has no attached file"));
+
+        mockMvc.perform(get("/api/books/1/download-url"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.success").value(false));
+    }
 }

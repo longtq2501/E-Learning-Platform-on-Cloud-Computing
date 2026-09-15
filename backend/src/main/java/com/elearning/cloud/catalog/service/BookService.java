@@ -98,4 +98,15 @@ public class BookService {
         log.info("Uploaded file for book id: {}, objectKey: {}", id, objectKey);
         return BookResponse.fromEntity(saved);
     }
+
+    public String getBookDownloadUrl(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+
+        if (!org.springframework.util.StringUtils.hasText(book.getStorageObjectKey())) {
+            throw new ResourceNotFoundException("Book has no attached file");
+        }
+
+        return storageService.generatePresignedUrl(book.getStorageObjectKey(), 15);
+    }
 }

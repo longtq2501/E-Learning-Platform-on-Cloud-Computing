@@ -66,4 +66,10 @@ public class BookController {
         BookResponse response = bookService.uploadBookFile(id, file);
         return ResponseEntity.ok(ApiResponse.success("File uploaded successfully", response));
     }
+
+    @GetMapping("/{id}/download-url")
+    public ResponseEntity<ApiResponse<java.util.Map<String, String>>> getDownloadUrl(@PathVariable Long id) {
+        String downloadUrl = bookService.getBookDownloadUrl(id);
+        return ResponseEntity.ok(ApiResponse.success(java.util.Collections.singletonMap("downloadUrl", downloadUrl)));
+    }
 }
