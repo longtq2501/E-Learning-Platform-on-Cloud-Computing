@@ -77,4 +77,16 @@ Tài liệu này lưu trữ các quyết định kiến trúc và giả định 
   - Nginx cấu hình phục vụ static SPA với fallback `try_files $uri $uri/ /index.html` và proxy upstream `/api/` tới cụm backend.
 - **Hệ quả**: Nhánh B hoạt động độc lập và hoàn toàn tương thích để sáp nhập với Nhánh A mà không gây xung đột mã nguồn.
 
+## ADR-007: Frontend Student ownership và JWT storage
+- **Ngày**: 2026-09-15
+- **Trạng thái**: Đã duyệt
+- **Bối cảnh**: Phase 4 được tách thành hai nhánh frontend làm song song; cần tránh để Nhánh A và Nhánh B cùng sửa các feature hoặc route.
+- **Quyết định**:
+  - Nhánh A sở hữu `frontend/src/pages/student/**` và luồng catalog, tìm kiếm, detail, tải/xem, feedback của Student.
+  - Nhánh B sở hữu các path Admin riêng; Nhánh A không tạo `frontend/src/pages/admin/**`, `frontend/src/features/admin/**` hoặc màn quản trị.
+  - API client, auth context, token interceptor và route foundation dùng chung nằm ở root `frontend/src`; Nhánh B cần giữ nguyên các file này khi tích hợp.
+  - JWT được lưu trong `localStorage` dưới key `cloud-campus-token`; thông tin user lưu dưới `cloud-campus-user`. Đây là lựa chọn phù hợp SPA demo nhưng cần harden bằng httpOnly cookie nếu triển khai production.
+  - API base URL lấy từ `VITE_API_BASE_URL`, mặc định `/api` để chạy qua Nginx.
+- **Hệ quả**: Hai nhánh không đụng cùng feature path; việc đăng nhập Admin vẫn redirect tới `/admin` để Nhánh B cung cấp route tương ứng ở bước tích hợp cuối Phase 4.
+- **Lưu ý tích hợp**: Backend hiện dùng `hasAnyRole('USER', 'ADMIN')` cho POST feedback trong khi role domain là `STUDENT` và `ADMIN`; cần sửa ở bước backend/integration trước khi demo Student gửi feedback end-to-end.
 
