@@ -65,3 +65,16 @@ Tài liệu này lưu trữ các quyết định kiến trúc và giả định 
   - `INSTANCE_ID` được cấp riêng cho từng container để chứng minh request distribution.
 - **Hệ quả**: Máy chạy demo phải copy `.env.example` thành `.env` và thay secret trước khi khởi động.
 
+---
+
+## ADR-006: Kiến trúc phân tách Phase 4 (Nhánh A Student & Nhánh B Admin)
+- **Ngày**: 2026-09-15
+- **Trạng thái**: Đã duyệt
+- **Bối cảnh**: Để tăng tốc độ phát triển và cho phép phân chia công việc song song, Phase 4 được chia thành hai nhánh độc lập: Nhánh A (Student Portal) và Nhánh B (Admin Management Portal).
+- **Quyết định**:
+  - Nhánh B triển khai toàn bộ giao diện quản trị back-office: Admin layout, RBAC guard cho `ROLE_ADMIN`, Dashboard thống kê và telemetry node backend, CRUD Category, CRUD Book kèm upload PDF trực tiếp lên MinIO qua multipart form data, CRUD Video kèm upload MP4 và preview streaming qua Presigned URL, danh sách Feedback và quản trị User.
+  - Core API client dùng Axios với base URL `/api` và interceptor tự động đính kèm Bearer token JWT từ LocalStorage và ghi nhận header `X-Instance-Id` để hiển thị node backend phục vụ.
+  - Nginx cấu hình phục vụ static SPA với fallback `try_files $uri $uri/ /index.html` và proxy upstream `/api/` tới cụm backend.
+- **Hệ quả**: Nhánh B hoạt động độc lập và hoàn toàn tương thích để sáp nhập với Nhánh A mà không gây xung đột mã nguồn.
+
+
