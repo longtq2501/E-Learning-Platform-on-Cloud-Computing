@@ -25,6 +25,7 @@ public class VideoResponse {
     private String contentType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Integer viewCount;
 
     public static VideoResponse fromEntity(Video video) {
         return VideoResponse.builder()
@@ -39,6 +40,7 @@ public class VideoResponse {
                 .contentType(video.getContentType())
                 .createdAt(video.getCreatedAt())
                 .updatedAt(video.getUpdatedAt())
+                .viewCount(video.getViewCount())
                 .build();
     }
 }

@@ -72,4 +72,15 @@ public class VideoController {
         String streamingUrl = videoService.getVideoStreamingUrl(id);
         return ResponseEntity.ok(ApiResponse.success(java.util.Collections.singletonMap("streamingUrl", streamingUrl)));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<VideoResponse>>> searchVideos(@RequestParam String q) {
+        return ResponseEntity.ok(ApiResponse.success(videoService.searchVideos(q)));
+    }
+
+    @PostMapping("/{id}/view")
+    public ResponseEntity<ApiResponse<Void>> incrementViewCount(@PathVariable Long id) {
+        videoService.incrementViewCount(id);
+        return ResponseEntity.ok(ApiResponse.success("View count incremented successfully", null));
+    }
 }

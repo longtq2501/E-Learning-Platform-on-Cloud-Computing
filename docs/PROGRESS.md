@@ -12,12 +12,12 @@
 | | 1.3 | Spring Security Filter Chain JWT Stateless | Done | `f3de5f1` | `feat(auth): configure jwt security filter chain` |
 | | 1.4 | Phân quyền RBAC (@PreAuthorize) | Done | `3770c4c` | `feat(auth): add role-based access control` |
 | | 1.5 | Unit tests AuthService | Done | `0a05f65` | `test(auth): add unit tests for auth service` |
-| **Phase 2** | 2.1 | Entity Category + CRUD API | Planned | - | `feat(catalog): add category entity and crud api` |
-| | 2.2 | Entity Book + CRUD metadata | Planned | - | `feat(catalog): add book entity and metadata crud` |
-| | 2.3 | Entity Video + CRUD metadata | Planned | - | `feat(catalog): add video entity and metadata crud` |
-| | 2.4 | Tích hợp MinIO SDK + Upload file | Planned | - | `feat(storage): integrate minio for file upload` |
-| | 2.5 | Endpoint Download Presigned URL | Planned | - | `feat(storage): add signed url download endpoint` |
-| | 2.6 | Video Streaming qua Presigned URL | Planned | - | `feat(storage): add video upload and streaming url` |
+| **Phase 2** | 2.1 | Entity Category + CRUD API | Done | `bce1864` | `feat(catalog): add category entity and crud api` |
+| | 2.2 | Entity Book + CRUD metadata | Done | `e6e897c` | `feat(catalog): add book entity and metadata crud` |
+| | 2.3 | Entity Video + CRUD metadata | Done | `41c75f6` | `feat(catalog): add video entity and metadata crud` |
+| | 2.4 | Tích hợp MinIO SDK + Upload file | Done | `4fd84f5` | `feat(storage): integrate minio for file upload` |
+| | 2.5 | Endpoint Download Presigned URL | Done | `d0dd3b3` | `feat(storage): add signed url download endpoint` |
+| | 2.6 | Video Streaming qua Presigned URL | Done | `df14dbc` | `feat(storage): add video upload and streaming url` |
 | **Phase 3** | 3.1 | Full-text search PostgreSQL `tsvector` | Planned | - | `feat(search): add postgres full-text search endpoint` |
 | | 3.2 | Entity Feedback + API gửi/xem feedback | Planned | - | `feat(feedback): add feedback entity and endpoints` |
 | | 3.3 | Thống kê lượt xem/tải | Planned | - | `feat(admin): add view and download stats tracking` |

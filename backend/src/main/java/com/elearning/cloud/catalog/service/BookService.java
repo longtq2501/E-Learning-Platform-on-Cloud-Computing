@@ -109,4 +109,25 @@ public class BookService {
 
         return storageService.generatePresignedUrl(book.getStorageObjectKey(), 15);
     }
+
+    public List<BookResponse> searchBooks(String query) {
+        List<Book> books = bookRepository.searchBooks(query);
+        return books.stream().map(BookResponse::fromEntity).toList();
+    }
+
+    @Transactional
+    public void incrementViewCount(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+        book.setViewCount(book.getViewCount() + 1);
+        bookRepository.save(book);
+    }
+
+    @Transactional
+    public void incrementDownloadCount(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+        book.setDownloadCount(book.getDownloadCount() + 1);
+        bookRepository.save(book);
+    }
 }

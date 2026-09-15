@@ -218,4 +218,26 @@ class VideoControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
     }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void searchVideos_ShouldReturn200WithResults() throws Exception {
+        VideoResponse video = VideoResponse.builder().id(1L).title("Spring Boot Tutorial").build();
+        when(videoService.searchVideos("spring")).thenReturn(List.of(video));
+
+        mockMvc.perform(get("/api/videos/search").param("q", "spring"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data[0].title").value("Spring Boot Tutorial"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void incrementViewCount_ShouldReturn200() throws Exception {
+        doNothing().when(videoService).incrementViewCount(1L);
+
+        mockMvc.perform(post("/api/videos/1/view").with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+    }
 }

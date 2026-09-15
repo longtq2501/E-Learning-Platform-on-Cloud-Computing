@@ -72,4 +72,21 @@ public class BookController {
         String downloadUrl = bookService.getBookDownloadUrl(id);
         return ResponseEntity.ok(ApiResponse.success(java.util.Collections.singletonMap("downloadUrl", downloadUrl)));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<BookResponse>>> searchBooks(@RequestParam String q) {
+        return ResponseEntity.ok(ApiResponse.success(bookService.searchBooks(q)));
+    }
+
+    @PostMapping("/{id}/view")
+    public ResponseEntity<ApiResponse<Void>> incrementViewCount(@PathVariable Long id) {
+        bookService.incrementViewCount(id);
+        return ResponseEntity.ok(ApiResponse.success("View count incremented successfully", null));
+    }
+
+    @PostMapping("/{id}/download")
+    public ResponseEntity<ApiResponse<Void>> incrementDownloadCount(@PathVariable Long id) {
+        bookService.incrementDownloadCount(id);
+        return ResponseEntity.ok(ApiResponse.success("Download count incremented successfully", null));
+    }
 }
