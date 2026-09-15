@@ -41,3 +41,27 @@ Tài liệu này lưu trữ các quyết định kiến trúc và giả định 
   - Mọi response API tuân theo format bọc thống nhất `ApiResponse<T>`.
   - Cấu hình JPA Auditing tách riêng (`JpaConfig`) khỏi `@SpringBootApplication` để tránh slice-test context pollution trong `@WebMvcTest`.
 
+---
+
+## ADR-004: Tách triển khai Phase 5 khỏi Frontend
+- **Ngày**: 2026-09-15
+- **Trạng thái**: Đã duyệt
+- **Bối cảnh**: Frontend Phase 4 được giao song song cho thành viên khác, trong khi cần kiểm chứng horizontal scaling sớm.
+- **Quyết định**:
+  - Phase 5 triển khai và kiểm thử độc lập với React frontend.
+  - Nginx hiện route `/api/` tới ba backend; route `/` trả thông báo tạm thời cho đến khi frontend được tích hợp.
+  - Frontend chỉ cần dùng base URL `/api` khi hoàn tất Phase 4.
+- **Hệ quả**: Có thể demo load balancing trước khi có giao diện, nhưng Definition of Done toàn hệ thống chỉ đạt sau khi tích hợp frontend.
+
+---
+
+## ADR-005: Cấu hình secret qua biến môi trường
+- **Ngày**: 2026-09-15
+- **Trạng thái**: Đã duyệt
+- **Bối cảnh**: Ba backend phải dùng chung JWT secret và thông tin dịch vụ mà không hardcode secret production trong Compose.
+- **Quyết định**:
+  - `JWT_SECRET` là biến bắt buộc khi chạy Compose.
+  - Dùng `infra/.env.example` làm mẫu; file `infra/.env` bị loại khỏi Git.
+  - `INSTANCE_ID` được cấp riêng cho từng container để chứng minh request distribution.
+- **Hệ quả**: Máy chạy demo phải copy `.env.example` thành `.env` và thay secret trước khi khởi động.
+

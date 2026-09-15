@@ -26,6 +26,7 @@ jwt:
   expiration: 86400000       # 24 hours in ms
 
 app:
+  instance-id: ${INSTANCE_ID:${HOSTNAME:local}}
   cors:
     allowed-origins:
       - http://localhost:5173
