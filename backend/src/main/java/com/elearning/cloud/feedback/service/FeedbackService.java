@@ -53,7 +53,7 @@ public class FeedbackService {
                 .build();
 
         Feedback saved = feedbackRepository.save(feedback);
-        log.info("Feedback submitted by user {}, type: {}, targetId: {}", username, request.getTargetType(), request.getTargetId());
+        log.info("Feedback submitted by user {}, type: {}, targetId: {}", email, request.getTargetType(), request.getTargetId());
         return FeedbackResponse.fromEntity(saved);
     }
 
