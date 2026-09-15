@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: elearning-cloud
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/elearning}
     username: ${DB_USERNAME:elearning}
@@ -35,8 +39,7 @@ app:
 
 minio:
   endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  public-endpoint: ${MINIO_PUBLIC_ENDPOINT:}
   access-key: ${MINIO_ACCESS_KEY:minioadmin}
   secret-key: ${MINIO_SECRET_KEY:minioadmin123}
   bucket-name: ${MINIO_BUCKET_NAME:elearning-media}
-
-

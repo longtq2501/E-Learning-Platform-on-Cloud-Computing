@@ -41,7 +41,11 @@ api.interceptors.response.use(
         window.location.href = '/admin/login';
       }
     }
-    const message = error.response?.data?.message || error.message || 'An unexpected error occurred';
+    const responseData = error.response?.data;
+    const validationErrors = responseData?.data && typeof responseData.data === 'object'
+      ? Object.values(responseData.data).join(', ')
+      : '';
+    const message = validationErrors || responseData?.message || error.message || 'An unexpected error occurred';
     return Promise.reject(new Error(message));
   }
 );

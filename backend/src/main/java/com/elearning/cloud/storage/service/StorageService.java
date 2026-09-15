@@ -24,6 +24,15 @@ public class StorageService {
     @Value("${minio.bucket-name}")
     private String bucketName;
 
+    @Value("${minio.public-endpoint:}")
+    private String publicEndpoint;
+
+    @Value("${minio.access-key}")
+    private String accessKey;
+
+    @Value("${minio.secret-key}")
+    private String secretKey;
+
     /**
      * Uploads a file to MinIO under the specified prefix.
      * Generates a unique object key to avoid collision.
@@ -83,7 +92,14 @@ public class StorageService {
         }
 
         try {
-            return minioClient.getPresignedObjectUrl(
+            MinioClient signingClient = StringUtils.hasText(publicEndpoint)
+                    ? MinioClient.builder()
+                    .endpoint(publicEndpoint)
+                    .credentials(accessKey, secretKey)
+                    .region("us-east-1")
+                    .build()
+                    : minioClient;
+            return signingClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
                             .method(Method.GET)
                             .bucket(bucketName)

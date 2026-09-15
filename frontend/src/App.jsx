@@ -61,23 +61,26 @@ const LandingPortalHub = () => {
             </Link>
           </div>
 
-          {/* Branch A Card */}
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 opacity-75">
+          {/* Student portal */}
+          <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-xl bg-slate-800 text-slate-400 border border-slate-700">
                 <CloudIcon className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-slate-200">Student Learning Portal</h3>
-                <span className="text-[11px] font-semibold text-slate-400 uppercase">Phase 4 Branch A (Independent)</span>
+                <span className="text-[11px] font-semibold text-slate-400 uppercase">Student Learning Portal</span>
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Public course browsing, PostgreSQL tsvector search, book reading, and video lecture player streaming via presigned tokens.
             </p>
-            <div className="py-2.5 px-4 bg-slate-900 border border-slate-800 text-slate-500 rounded-xl text-xs font-semibold text-center">
-              Branch A Target
-            </div>
+            <Link
+              to="/login"
+              className="inline-flex items-center justify-center w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-xl text-xs font-semibold transition-all"
+            >
+              Sign in as Student →
+            </Link>
           </div>
         </div>
 
