@@ -83,6 +83,13 @@
 			<artifactId>minio</artifactId>
 			<version>8.5.10</version>
 		</dependency>
+
+		<!-- OpenAPI and Swagger UI -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

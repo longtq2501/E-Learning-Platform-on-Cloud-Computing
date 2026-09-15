@@ -68,7 +68,7 @@ class FeedbackControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "STUDENT")
     void submitFeedback_success() throws Exception {
         FeedbackRequest request = new FeedbackRequest();
         request.setTargetType(FeedbackTargetType.BOOK);
@@ -113,5 +113,23 @@ class FeedbackControllerTest {
                         .param("targetId", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.content[0].rating").value(5));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void getAllFeedbacks_admin_success() throws Exception {
+        var page = new PageImpl<>(List.of(sampleResponse()));
+        when(feedbackService.getAllFeedbacks(any(Pageable.class))).thenReturn(page);
+
+        mockMvc.perform(get("/api/feedbacks/admin"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.content[0].targetType").value("BOOK"));
+    }
+
+    @Test
+    @WithMockUser(roles = "STUDENT")
+    void getAllFeedbacks_student_isForbidden() throws Exception {
+        mockMvc.perform(get("/api/feedbacks/admin"))
+                .andExpect(status().isForbidden());
     }
 }

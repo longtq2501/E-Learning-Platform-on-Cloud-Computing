@@ -8,8 +8,8 @@ COPY mvnw mvnw.cmd ./
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Download dependencies (cached unless pom.xml changes)
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw && ./mvnw dependency:go-offline -B --no-transfer-progress
+# Normalize the Windows checkout before invoking Maven in the Linux image.
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
 
 # Copy source code and build
 COPY src src

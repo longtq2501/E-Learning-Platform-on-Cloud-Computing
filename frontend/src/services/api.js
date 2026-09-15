@@ -197,8 +197,9 @@ export const videoApi = {
 // Feedback Services
 export const feedbackApi = {
   getAll: async () => {
-    const res = await api.get('/feedbacks');
-    return res.data?.data || res.data;
+    const res = await api.get('/feedbacks/admin');
+    const data = res.data?.data || res.data;
+    return data?.content || data;
   },
   create: async (data) => {
     const res = await api.post('/feedbacks', data);

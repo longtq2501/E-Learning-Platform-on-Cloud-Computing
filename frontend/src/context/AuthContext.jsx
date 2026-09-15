@@ -35,12 +35,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const data = await authApi.login({ email, password });
-    const authToken = data.token;
+    const authToken = data.accessToken;
     const userData = {
-      id: data.id,
-      email: data.email,
-      fullName: data.fullName,
-      role: data.role,
+      id: data.user.id,
+      email: data.user.email,
+      fullName: data.user.fullName,
+      role: data.user.role,
     };
 
     localStorage.setItem('elearning_token', authToken);
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const isAdmin = user?.role === 'ROLE_ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
   const isAuthenticated = !!token && !!user;
 
   return (
