@@ -57,4 +57,19 @@ public class VideoController {
         videoService.deleteVideo(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/{id}/upload", consumes = org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<VideoResponse>> uploadVideoFile(
+            @PathVariable Long id,
+            @RequestParam("file") org.springframework.web.multipart.MultipartFile file) {
+        VideoResponse response = videoService.uploadVideoFile(id, file);
+        return ResponseEntity.ok(ApiResponse.success("Video uploaded successfully", response));
+    }
+
+    @GetMapping("/{id}/stream-url")
+    public ResponseEntity<ApiResponse<java.util.Map<String, String>>> getStreamingUrl(@PathVariable Long id) {
+        String streamingUrl = videoService.getVideoStreamingUrl(id);
+        return ResponseEntity.ok(ApiResponse.success(java.util.Collections.singletonMap("streamingUrl", streamingUrl)));
+    }
 }

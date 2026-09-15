@@ -163,4 +163,59 @@ class VideoControllerTest {
 
         verify(videoService).deleteVideo(1L);
     }
+
+    @Test
+    @WithMockUser(username = "admin@test.com", roles = {"ADMIN"})
+    void uploadVideoFile_WhenAdmin_ShouldReturn200() throws Exception {
+        org.springframework.mock.web.MockMultipartFile file = new org.springframework.mock.web.MockMultipartFile(
+                "file", "lecture.mp4", "video/mp4", "dummy video stream".getBytes()
+        );
+
+        VideoResponse response = VideoResponse.builder()
+                .id(1L)
+                .title("Cloud Lecture")
+                .storageObjectKey("videos/uuid.mp4")
+                .build();
+
+        when(videoService.uploadVideoFile(eq(1L), any())).thenReturn(response);
+
+        mockMvc.perform(multipart("/api/videos/1/upload").file(file))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.storageObjectKey").value("videos/uuid.mp4"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void uploadVideoFile_WhenStudent_ShouldReturn403() throws Exception {
+        org.springframework.mock.web.MockMultipartFile file = new org.springframework.mock.web.MockMultipartFile(
+                "file", "lecture.mp4", "video/mp4", "dummy video stream".getBytes()
+        );
+
+        mockMvc.perform(multipart("/api/videos/1/upload").file(file))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void getStreamingUrl_WhenFileExists_ShouldReturn200WithUrl() throws Exception {
+        when(videoService.getVideoStreamingUrl(1L))
+                .thenReturn("http://localhost:9000/media/videos/test.mp4?sig=xyz");
+
+        mockMvc.perform(get("/api/videos/1/stream-url"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data.streamingUrl").value("http://localhost:9000/media/videos/test.mp4?sig=xyz"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void getStreamingUrl_WhenNoFileAttached_ShouldReturn404() throws Exception {
+        when(videoService.getVideoStreamingUrl(1L))
+                .thenThrow(new ResourceNotFoundException("Video has no attached media file"));
+
+        mockMvc.perform(get("/api/videos/1/stream-url"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.success").value(false));
+    }
 }
