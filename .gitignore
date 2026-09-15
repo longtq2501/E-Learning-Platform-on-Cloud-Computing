@@ -49,6 +49,8 @@ Thumbs.db
 # Docker / local data
 postgres_data/
 minio_data/
+.env
+infra/.env
 
 #AI Agent skills
 skills

@@ -9,7 +9,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 
 # Download dependencies (cached unless pom.xml changes)
-RUN chmod +x mvnw && ./mvnw dependency:go-offline -B --no-transfer-progress
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw && ./mvnw dependency:go-offline -B --no-transfer-progress
 
 # Copy source code and build
 COPY src src
@@ -28,5 +28,8 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+	CMD wget -qO- http://localhost:8080/api/health || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
