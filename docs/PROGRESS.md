@@ -2,10 +2,11 @@
 
 | Phase | Step | Nhiệm vụ | Trạng thái | Commit Hash | Ghi chú |
 |---|---|---|---|---|---|
-| **Phase 0** | 0.1 | Khởi tạo cấu trúc thư mục, .gitignore, docs | In Progress | - | `chore(repo): init project structure` |
-| | 0.2 | Khởi tạo Spring Boot + endpoint `/api/health` | Planned | - | `feat(backend): bootstrap spring boot project with health endpoint` |
-| | 0.3 | Cấu hình Docker Compose: Postgres + MinIO | Planned | - | `infra(compose): add postgres and minio services` |
-| | 0.4 | Dockerize backend + ghép vào Docker Compose | Planned | - | `infra(docker): containerize backend service` |
+| **Phase 0** | 0.1 | Khởi tạo cấu trúc thư mục, .gitignore, docs | Done | `2a14f8e` | `chore(repo): init project structure` |
+| | 0.2 | Khởi tạo Spring Boot + endpoint `/api/health` | Done | `f3b3479` | `feat(backend): bootstrap spring boot project with health endpoint` |
+| | 0.3 | Cấu hình Docker Compose: Postgres + MinIO | Done | `7790d7a` | `infra(compose): add postgres and minio services` |
+| | 0.4 | Dockerize backend + ghép vào Docker Compose | Done | `c182006` | `infra(docker): containerize backend service` |
+
 | **Phase 1** | 1.1 | Entity User + Repository + Schema | Planned | - | `feat(auth): add user entity and repository` |
 | | 1.2 | Register & Login endpoints (BCrypt, JWT) | Planned | - | `feat(auth): implement register and login endpoints` |
 | | 1.3 | Spring Security Filter Chain JWT Stateless | Planned | - | `feat(auth): configure jwt security filter chain` |
