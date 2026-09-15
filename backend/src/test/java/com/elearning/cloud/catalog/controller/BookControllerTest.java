@@ -219,4 +219,36 @@ class BookControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
     }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void searchBooks_ShouldReturn200WithResults() throws Exception {
+        BookResponse book = BookResponse.builder().id(1L).title("Cloud Native Java").author("Josh Long").build();
+        when(bookService.searchBooks("cloud")).thenReturn(List.of(book));
+
+        mockMvc.perform(get("/api/books/search").param("q", "cloud"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.data[0].title").value("Cloud Native Java"));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void incrementViewCount_ShouldReturn200() throws Exception {
+        doNothing().when(bookService).incrementViewCount(1L);
+
+        mockMvc.perform(post("/api/books/1/view").with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @Test
+    @WithMockUser(username = "student@test.com", roles = {"STUDENT"})
+    void incrementDownloadCount_ShouldReturn200() throws Exception {
+        doNothing().when(bookService).incrementDownloadCount(1L);
+
+        mockMvc.perform(post("/api/books/1/download").with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+    }
 }

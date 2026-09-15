@@ -41,4 +41,8 @@ public class Video extends BaseEntity {
 
     @Column(name = "content_type", length = 100)
     private String contentType;
+
+    @Column(name = "view_count", nullable = false)
+    @Builder.Default
+    private Integer viewCount = 0;
 }

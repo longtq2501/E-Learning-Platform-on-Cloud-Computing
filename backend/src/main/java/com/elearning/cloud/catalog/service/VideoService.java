@@ -110,4 +110,17 @@ public class VideoService {
         // 60 minutes expiry for video streaming
         return storageService.generatePresignedUrl(video.getStorageObjectKey(), 60);
     }
+
+    public List<VideoResponse> searchVideos(String query) {
+        List<Video> videos = videoRepository.searchVideos(query);
+        return videos.stream().map(VideoResponse::fromEntity).toList();
+    }
+
+    @Transactional
+    public void incrementViewCount(Long id) {
+        Video video = videoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Video not found with id: " + id));
+        video.setViewCount(video.getViewCount() + 1);
+        videoRepository.save(video);
+    }
 }

@@ -25,6 +25,8 @@ public class BookResponse {
     private String contentType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Integer viewCount;
+    private Integer downloadCount;
 
     public static BookResponse fromEntity(Book book) {
         return BookResponse.builder()
@@ -39,6 +41,8 @@ public class BookResponse {
                 .contentType(book.getContentType())
                 .createdAt(book.getCreatedAt())
                 .updatedAt(book.getUpdatedAt())
+                .viewCount(book.getViewCount())
+                .downloadCount(book.getDownloadCount())
                 .build();
     }
 }
