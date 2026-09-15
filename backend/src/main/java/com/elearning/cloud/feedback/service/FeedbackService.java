@@ -29,9 +29,9 @@ public class FeedbackService {
     private final VideoRepository videoRepository;
 
     @Transactional
-    public FeedbackResponse submitFeedback(String username, FeedbackRequest request) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+    public FeedbackResponse submitFeedback(String email, FeedbackRequest request) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + email));
 
         // Validate target exists
         if (request.getTargetType() == FeedbackTargetType.BOOK) {
