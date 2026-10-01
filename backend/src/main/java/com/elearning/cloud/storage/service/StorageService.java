@@ -100,18 +100,7 @@ public class StorageService {
         }
 
         try {
-<<<<<<< HEAD
             return publicMinioClient.getPresignedObjectUrl(
-=======
-            MinioClient signingClient = StringUtils.hasText(publicEndpoint)
-                    ? MinioClient.builder()
-                    .endpoint(publicEndpoint)
-                    .credentials(accessKey, secretKey)
-                    .region("us-east-1")
-                    .build()
-                    : minioClient;
-            return signingClient.getPresignedObjectUrl(
->>>>>>> 5c7bb6ee5517a8e81d8f1700798938b8da1056c0
                     GetPresignedObjectUrlArgs.builder()
                             .method(Method.GET)
                             .bucket(bucketName)
