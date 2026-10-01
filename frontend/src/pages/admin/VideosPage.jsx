@@ -164,6 +164,10 @@ export const VideosPage = () => {
       showError('Please select an MP4 video file to upload');
       return;
     }
+    if (uploadFile.size > 500 * 1024 * 1024) {
+      showError('Video file is too large. Maximum size is 500 MB');
+      return;
+    }
     setSubmitting(true);
     setUploadProgress(10);
     try {

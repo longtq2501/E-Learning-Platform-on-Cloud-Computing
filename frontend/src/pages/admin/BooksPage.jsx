@@ -94,6 +94,14 @@ export const BooksPage = () => {
       showError('Book title is required');
       return;
     }
+    if (!formAuthor.trim()) {
+      showError('Book author is required');
+      return;
+    }
+    if (!formCategoryId) {
+      showError('Create a category first, then select it for this book');
+      return;
+    }
     setSubmitting(true);
     try {
       const created = await bookApi.create({
@@ -120,6 +128,14 @@ export const BooksPage = () => {
     e.preventDefault();
     if (!formTitle.trim()) {
       showError('Book title is required');
+      return;
+    }
+    if (!formAuthor.trim()) {
+      showError('Book author is required');
+      return;
+    }
+    if (!formCategoryId) {
+      showError('Select a category for this book');
       return;
     }
     setSubmitting(true);
