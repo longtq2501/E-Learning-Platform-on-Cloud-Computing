@@ -65,9 +65,9 @@ export const FeedbackPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Student Feedback & Submissions</h1>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Phản hồi từ người học</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Review inquiries, ratings, and course feedback submitted by learners.
+            Xem các góp ý và đánh giá được gửi về từ người học.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ export const FeedbackPage = () => {
             onClick={fetchFeedbacks}
             disabled={loading}
             className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-800 transition-colors"
-            title="Refresh list"
+            title="Làm mới danh sách"
           >
             <RefreshIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -90,24 +90,24 @@ export const FeedbackPage = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search feedback by title, content, or student email..."
+            placeholder="Tìm theo tiêu đề, nội dung hoặc email..."
             className="bg-transparent border-none w-full text-slate-100 text-sm placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <span className="text-xs text-slate-400 font-semibold uppercase whitespace-nowrap">
-            Target Type:
+            Loại nội dung:
           </span>
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
             className="bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-500"
           >
-            <option value="ALL">All Targets</option>
-            <option value="BOOK">Book Feedback</option>
-            <option value="VIDEO">Video Feedback</option>
-            <option value="SYSTEM">Platform / System</option>
+            <option value="ALL">Tất cả</option>
+            <option value="BOOK">Phản hồi sách</option>
+            <option value="VIDEO">Phản hồi video</option>
+            <option value="SYSTEM">Nền tảng / hệ thống</option>
           </select>
         </div>
       </div>
@@ -117,12 +117,12 @@ export const FeedbackPage = () => {
         {loading ? (
           <div className="py-16 text-center text-slate-400">
             <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm">Fetching student submissions...</p>
+            <p className="text-sm">Đang tải phản hồi...</p>
           </div>
         ) : filteredFeedbacks.length === 0 ? (
           <div className="py-16 text-center text-slate-500">
             <FeedbackIcon className="w-10 h-10 mx-auto mb-3 text-slate-600" />
-            <p className="text-sm font-medium">No feedback items match the selected criteria.</p>
+            <p className="text-sm font-medium">Không có phản hồi phù hợp.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -194,7 +194,7 @@ export const FeedbackPage = () => {
           <div className="space-y-4">
             <div>
               <span className="text-xs font-semibold uppercase text-slate-400">Title</span>
-              <h4 className="text-base font-bold text-white mt-0.5">{selectedFeedback.title}</h4>
+              <h4 className="text-base font-bold text-[#193431] mt-0.5">{selectedFeedback.title}</h4>
             </div>
 
             <div className="grid grid-cols-2 gap-4 p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">

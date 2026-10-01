@@ -27,12 +27,12 @@ export const AdminLayout = () => {
   const [healthStatus, setHealthStatus] = useState('CHECKING');
 
   const navItems = [
-    { to: '/admin', label: 'Dashboard', icon: DashboardIcon, end: true },
-    { to: '/admin/categories', label: 'Categories', icon: FolderIcon },
-    { to: '/admin/books', label: 'Books & PDFs', icon: BookIcon },
-    { to: '/admin/videos', label: 'Videos & Media', icon: VideoIcon },
-    { to: '/admin/feedback', label: 'Feedbacks', icon: FeedbackIcon },
-    { to: '/admin/users', label: 'Users & Roles', icon: UsersIcon },
+    { to: '/admin', label: 'Tổng quan', icon: DashboardIcon, end: true },
+    { to: '/admin/categories', label: 'Danh mục', icon: FolderIcon },
+    { to: '/admin/books', label: 'Sách & tài liệu', icon: BookIcon },
+    { to: '/admin/videos', label: 'Video bài giảng', icon: VideoIcon },
+    { to: '/admin/feedback', label: 'Phản hồi', icon: FeedbackIcon },
+    { to: '/admin/users', label: 'Người dùng', icon: UsersIcon },
   ];
 
   const checkHealth = async () => {
@@ -90,7 +90,7 @@ export const AdminLayout = () => {
               <div>
                 <h1 className="font-bold text-base text-white leading-none">Cloud Learning</h1>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-400">
-                  Admin Back-Office
+                  Khu vực quản trị
                 </span>
               </div>
             </div>
@@ -132,7 +132,7 @@ export const AdminLayout = () => {
               <div className="flex items-center gap-2 overflow-hidden">
                 <ServerIcon className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 <div className="truncate">
-                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Instance Node</p>
+                  <p className="text-[10px] text-slate-400 uppercase font-semibold">Máy chủ đang phục vụ</p>
                   <p className="font-mono text-emerald-400 font-bold truncate">
                     {instanceId !== 'unknown' ? instanceId : 'backend-pool'}
                   </p>
@@ -140,7 +140,7 @@ export const AdminLayout = () => {
               </div>
               <button
                 onClick={checkHealth}
-                title="Refresh node health"
+                title="Kiểm tra trạng thái máy chủ"
                 className="p-1 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded transition-colors"
               >
                 <RefreshIcon className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export const AdminLayout = () => {
               </div>
               <button
                 onClick={handleLogout}
-                title="Sign out"
+                title="Đăng xuất"
                 className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition-colors flex-shrink-0"
               >
                 <LogoutIcon className="w-4 h-4" />
@@ -180,7 +180,7 @@ export const AdminLayout = () => {
               ROLE_ADMIN
             </div>
             <span className="text-xs text-slate-400">
-              Stateless JWT Session Active
+              Phiên đăng nhập an toàn đang hoạt động
             </span>
           </div>
 
@@ -191,7 +191,7 @@ export const AdminLayout = () => {
                   healthStatus === 'UP' ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'
                 }`}
               />
-              <span className="text-slate-400">Backend:</span>
+              <span className="text-slate-400">Máy chủ:</span>
               <span className="text-slate-200 font-mono font-semibold">{instanceId}</span>
             </div>
           </div>

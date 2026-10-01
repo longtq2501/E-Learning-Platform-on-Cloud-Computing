@@ -210,9 +210,9 @@ export const BooksPage = () => {
       {/* Header and Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Book & Document Management</h1>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Quản lý sách và tài liệu</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Manage e-books, metadata records, and MinIO object storage PDF uploads.
+            Quản lý thông tin sách và tệp PDF lưu trên MinIO.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -220,7 +220,7 @@ export const BooksPage = () => {
             onClick={loadData}
             disabled={loading}
             className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-800 transition-colors"
-            title="Refresh list"
+            title="Làm mới danh sách"
           >
             <RefreshIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -229,7 +229,7 @@ export const BooksPage = () => {
             className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2"
           >
             <PlusIcon className="w-4 h-4" />
-            <span>Add Book</span>
+            <span>Thêm sách</span>
           </button>
         </div>
       </div>
@@ -242,21 +242,21 @@ export const BooksPage = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search books by title, author, or keyword..."
+            placeholder="Tìm theo tên sách, tác giả hoặc từ khóa..."
             className="bg-transparent border-none w-full text-slate-100 text-sm placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <span className="text-xs text-slate-400 font-semibold uppercase whitespace-nowrap">
-            Category:
+            Danh mục:
           </span>
           <select
             value={selectedCategoryId}
             onChange={(e) => setSelectedCategoryId(e.target.value)}
             className="bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-500"
           >
-            <option value="">All Categories</option>
+            <option value="">Tất cả danh mục</option>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -271,12 +271,12 @@ export const BooksPage = () => {
         {loading ? (
           <div className="py-16 text-center text-slate-400">
             <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm">Querying books catalog...</p>
+            <p className="text-sm">Đang tải thư viện sách...</p>
           </div>
         ) : filteredBooks.length === 0 ? (
           <div className="py-16 text-center text-slate-500">
             <BookIcon className="w-10 h-10 mx-auto mb-3 text-slate-600" />
-            <p className="text-sm font-medium">No books found in this filter.</p>
+            <p className="text-sm font-medium">Không tìm thấy sách phù hợp.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -620,7 +620,7 @@ export const BooksPage = () => {
         <div className="space-y-4">
           <p className="text-sm text-slate-300">
             Are you sure you want to delete book{' '}
-            <span className="font-bold text-white">"{selectedBook?.title}"</span>?
+            <span className="font-bold text-[#193431]">"{selectedBook?.title}"</span>?
           </p>
           <p className="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800">
             Note: In cloud architecture, removing metadata in PostgreSQL cleans up catalog records. MinIO object lifecycle is decoupled.

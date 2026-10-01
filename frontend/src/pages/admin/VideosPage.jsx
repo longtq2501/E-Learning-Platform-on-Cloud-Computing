@@ -219,9 +219,9 @@ export const VideosPage = () => {
       {/* Header and Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Video & Media Management</h1>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Quản lý video bài giảng</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Manage lecture streams, MP4 uploads to MinIO, and presigned streaming verification.
+            Quản lý video MP4, lưu trữ MinIO và xem trước luồng phát.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -229,7 +229,7 @@ export const VideosPage = () => {
             onClick={loadData}
             disabled={loading}
             className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-800 transition-colors"
-            title="Refresh list"
+            title="Làm mới danh sách"
           >
             <RefreshIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -238,7 +238,7 @@ export const VideosPage = () => {
             className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2"
           >
             <PlusIcon className="w-4 h-4" />
-            <span>Add Video</span>
+            <span>Thêm video</span>
           </button>
         </div>
       </div>
@@ -251,21 +251,21 @@ export const VideosPage = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search videos by title or topic..."
+            placeholder="Tìm theo tên video hoặc chủ đề..."
             className="bg-transparent border-none w-full text-slate-100 text-sm placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <span className="text-xs text-slate-400 font-semibold uppercase whitespace-nowrap">
-            Category:
+            Danh mục:
           </span>
           <select
             value={selectedCategoryId}
             onChange={(e) => setSelectedCategoryId(e.target.value)}
             className="bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-500"
           >
-            <option value="">All Categories</option>
+            <option value="">Tất cả danh mục</option>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -280,12 +280,12 @@ export const VideosPage = () => {
         {loading ? (
           <div className="py-16 text-center text-slate-400">
             <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm">Loading video catalog...</p>
+            <p className="text-sm">Đang tải thư viện video...</p>
           </div>
         ) : filteredVideos.length === 0 ? (
           <div className="py-16 text-center text-slate-500">
             <VideoIcon className="w-10 h-10 mx-auto mb-3 text-slate-600" />
-            <p className="text-sm font-medium">No video records found.</p>
+            <p className="text-sm font-medium">Chưa có video nào.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -682,7 +682,7 @@ export const VideosPage = () => {
         <div className="space-y-4">
           <p className="text-sm text-slate-300">
             Are you sure you want to delete video{' '}
-            <span className="font-bold text-white">"{selectedVideo?.title}"</span>?
+            <span className="font-bold text-[#193431]">"{selectedVideo?.title}"</span>?
           </p>
           <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
             <button

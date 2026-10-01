@@ -23,8 +23,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class StorageServiceTest {
 
-    @Mock
+    @Mock(name = "minioClient")
     private MinioClient minioClient;
+
+    @Mock(name = "publicMinioClient")
+    private MinioClient publicMinioClient;
 
     @InjectMocks
     private StorageService storageService;
@@ -64,13 +67,13 @@ class StorageServiceTest {
 
     @Test
     void generatePresignedUrl_WithValidKey_ShouldReturnUrl() throws Exception {
-        when(minioClient.getPresignedObjectUrl(any(GetPresignedObjectUrlArgs.class)))
+        when(publicMinioClient.getPresignedObjectUrl(any(GetPresignedObjectUrlArgs.class)))
                 .thenReturn("http://localhost:9000/test-bucket/books/test.pdf?sign=123");
 
         String url = storageService.generatePresignedUrl("books/test.pdf", 15);
 
         assertThat(url).isEqualTo("http://localhost:9000/test-bucket/books/test.pdf?sign=123");
-        verify(minioClient).getPresignedObjectUrl(any(GetPresignedObjectUrlArgs.class));
+        verify(publicMinioClient).getPresignedObjectUrl(any(GetPresignedObjectUrlArgs.class));
     }
 
     @Test

@@ -45,9 +45,9 @@ export const UsersPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">User Directory & Roles</h1>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Người dùng và phân quyền</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Registered students and platform administrators with RBAC roles.
+            Danh sách tài khoản và vai trò truy cập trong hệ thống.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -55,7 +55,7 @@ export const UsersPage = () => {
             onClick={fetchUsers}
             disabled={loading}
             className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-800 transition-colors"
-            title="Refresh user list"
+            title="Làm mới danh sách người dùng"
           >
             <RefreshIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -70,21 +70,21 @@ export const UsersPage = () => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search users by name or email address..."
+            placeholder="Tìm theo tên hoặc email..."
             className="bg-transparent border-none w-full text-slate-100 text-sm placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <span className="text-xs text-slate-400 font-semibold uppercase whitespace-nowrap">
-            Role:
+            Vai trò:
           </span>
           <select
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
             className="bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-500"
           >
-            <option value="ALL">All Roles</option>
+            <option value="ALL">Tất cả vai trò</option>
             <option value="ROLE_ADMIN">ROLE_ADMIN</option>
             <option value="ROLE_STUDENT">ROLE_STUDENT</option>
           </select>
@@ -96,12 +96,12 @@ export const UsersPage = () => {
         {loading ? (
           <div className="py-16 text-center text-slate-400">
             <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm">Fetching user accounts...</p>
+            <p className="text-sm">Đang tải tài khoản...</p>
           </div>
         ) : filteredUsers.length === 0 ? (
           <div className="py-16 text-center text-slate-500">
             <UsersIcon className="w-10 h-10 mx-auto mb-3 text-slate-600" />
-            <p className="text-sm font-medium">No users found matching current filter.</p>
+            <p className="text-sm font-medium">Không tìm thấy người dùng phù hợp.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">

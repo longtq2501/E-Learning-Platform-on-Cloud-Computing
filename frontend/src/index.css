@@ -4,17 +4,89 @@
 
 @layer base {
   :root {
-    --bg-main: #090d16;
-    --card-bg: #111827;
-    --card-border: #1f2937;
+    --bg-main: #f6f8f5;
+    --card-bg: #ffffff;
+    --card-border: #dfe7e2;
+    --ink: #193431;
+    --muted: #64736f;
+    --teal: #0f766e;
+    --teal-soft: #e3f2ef;
+    --yellow: #f2bd4b;
+    --line: #dfe7e2;
   }
 
   body {
     background-color: var(--bg-main);
-    color: #f3f4f6;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--ink);
+    font-family: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
+    background-image: radial-gradient(#d8e7e1 0.7px, transparent 0.7px);
+    background-size: 22px 22px;
   }
 }
+
+button,
+a,
+input,
+textarea,
+select {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+/* Light workspace theme: keeps existing Tailwind structure while removing the dark glass treatment. */
+[class*='bg-slate-950'] { background-color: var(--bg-main) !important; }
+[class*='bg-slate-900'] { background-color: var(--card-bg) !important; }
+[class*='bg-slate-800'] { background-color: #eef4f1 !important; }
+[class*='bg-slate-700'] { background-color: #e5eeea !important; }
+[class*='bg-indigo-600'] { background-color: var(--teal) !important; }
+[class*='bg-indigo-500'] { background-color: var(--teal-soft) !important; }
+[class*='bg-blue-600'] { background-color: #256d8a !important; }
+[class*='bg-emerald-500'] { background-color: #dff1e8 !important; }
+[class*='bg-amber-500'] { background-color: #fff0c9 !important; }
+
+[class*='text-white'],
+[class*='text-slate-100'],
+[class*='text-slate-200'] { color: var(--ink) !important; }
+[class*='text-slate-300'],
+[class*='text-slate-400'] { color: var(--muted) !important; }
+[class*='text-slate-500'] { color: #71827d !important; }
+[class*='text-indigo-400'],
+[class*='text-indigo-300'] { color: var(--teal) !important; }
+[class*='text-emerald-400'] { color: #177b55 !important; }
+[class*='text-blue-400'] { color: #256d8a !important; }
+[class*='text-amber-400'] { color: #a96500 !important; }
+
+[class*='border-slate-800'],
+[class*='border-slate-700'] { border-color: var(--line) !important; }
+[class*='border-indigo-500'],
+[class*='border-indigo-400'] { border-color: #9bcfc5 !important; }
+
+[class*='shadow-indigo-600'],
+[class*='shadow-indigo-500'] { box-shadow: 0 8px 20px rgba(15, 118, 110, 0.18) !important; }
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: 0 12px 30px rgba(25, 52, 49, 0.06);
+  backdrop-filter: none;
+}
+
+.table-row-hover:hover {
+  background-color: #f0f7f4 !important;
+}
+
+input,
+textarea,
+select {
+  color: var(--ink) !important;
+}
+
+input::placeholder,
+textarea::placeholder { color: #8a9994 !important; }
+
+[class*='bg-indigo-600'] [class*='text-white'],
+[class*='bg-indigo-500'] [class*='text-white'],
+button[class*='bg-indigo-600'],
+a[class*='bg-indigo-600'] { color: #ffffff !important; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -23,35 +95,28 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #edf3ef;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #b8cbc3;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #7e9b91;
 }
 
-/* Glass panel utility */
-.glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Tailwind's utility layer needs a scoped override for the light admin workspace. */
+main [class*='text-white'],
+main [class*='text-slate-100'],
+main [class*='text-slate-200'] {
+  color: var(--ink) !important;
 }
 
-.glass-panel-hover {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-panel-hover:hover {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(99, 102, 241, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+main [class*='text-slate-300'],
+main [class*='text-slate-400'] {
+  color: var(--muted) !important;
 }
 
 .table-row-hover {

@@ -18,23 +18,23 @@ import { RegisterPage } from './pages/RegisterPage.tsx';
 import { StudentHomePage } from './pages/student/StudentHomePage.tsx';
 import { StudentDetailPage } from './pages/student/StudentDetailPage.tsx';
 
-// Placeholder / Hub landing page maintaining clean boundary with Branch A
 const LandingPortalHub = () => {
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 text-slate-100 relative overflow-hidden">
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-      
       <div className="max-w-2xl w-full text-center space-y-8 relative z-10">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-600 shadow-2xl shadow-indigo-600/40 text-white font-extrabold text-2xl border border-indigo-400/30">
           EL
         </div>
 
         <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 mb-3">
+            Không gian học tập số
+          </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            E-Learning Platform on Cloud Computing
+            Cloud Learning
           </h1>
           <p className="text-slate-400 text-base mt-3 max-w-lg mx-auto">
-            High-performance cloud architecture demo featuring decoupled MinIO S3 storage, stateless Spring Boot instances, and Nginx load balancing.
+            Nền tảng quản lý học liệu trên hạ tầng cloud, nơi nội dung được tổ chức gọn gàng và sẵn sàng phục vụ người học.
           </p>
         </div>
 
@@ -46,44 +46,47 @@ const LandingPortalHub = () => {
                 <ShieldIcon className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">Admin Management Portal</h3>
-                <span className="text-[11px] font-semibold text-indigo-400 uppercase">Phase 4 Branch B (Active)</span>
+                <h3 className="text-base font-bold text-white">Khu vực quản trị</h3>
+                <span className="text-[11px] font-semibold text-indigo-400 uppercase">Đang hoạt động</span>
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Full administration suite: category CRUD, book metadata & MinIO PDF upload, video metadata & MP4 streaming upload, feedback review, and user management.
+              Quản lý danh mục, sách, video, phản hồi và người dùng trong một không gian tập trung.
             </p>
             <Link
               to="/admin"
               className="inline-flex items-center justify-center w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all"
             >
-              Enter Admin Portal →
+              Vào khu vực quản trị →
             </Link>
           </div>
 
           {/* Branch A Card */}
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 opacity-75">
+          <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-xl bg-slate-800 text-slate-400 border border-slate-700">
                 <CloudIcon className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-200">Student Learning Portal</h3>
-                <span className="text-[11px] font-semibold text-slate-400 uppercase">Phase 4 Branch A (Independent)</span>
+                <h3 className="text-base font-bold text-slate-200">Không gian người học</h3>
+                <span className="text-[11px] font-semibold text-slate-400 uppercase">Đang hoàn thiện</span>
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Public course browsing, PostgreSQL tsvector search, book reading, and video lecture player streaming via presigned tokens.
+              Khám phá học liệu, tìm kiếm sách, xem video bài giảng và gửi phản hồi.
             </p>
-            <div className="py-2.5 px-4 bg-slate-900 border border-slate-800 text-slate-500 rounded-xl text-xs font-semibold text-center">
-              Branch A Target
-            </div>
+            <Link
+              to="/login"
+              className="inline-flex items-center justify-center w-full py-2.5 px-4 bg-slate-800 border border-slate-700 text-slate-200 rounded-xl text-xs font-semibold text-center hover:bg-slate-700"
+            >
+              Vào không gian người học →
+            </Link>
           </div>
         </div>
 
         <div className="text-xs text-slate-500 flex items-center justify-center gap-2">
           <ServerIcon className="w-4 h-4 text-slate-400" />
-          <span>Stateless Monolith Backend + Nginx Load Balancer</span>
+          <span>Hạ tầng Spring Boot + Nginx + MinIO</span>
         </div>
       </div>
     </div>

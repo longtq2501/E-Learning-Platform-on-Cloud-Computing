@@ -33,7 +33,7 @@ export const CategoriesPage = () => {
       const data = await categoryApi.getAll();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
-      showError('Failed to load categories: ' + err.message);
+      showError('Không thể tải danh mục: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,7 @@ export const CategoriesPage = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     if (!formName.trim()) {
-      showError('Category name is required');
+      showError('Vui lòng nhập tên danh mục');
       return;
     }
     setSubmitting(true);
@@ -73,11 +73,11 @@ export const CategoriesPage = () => {
         name: formName.trim(),
         description: formDescription.trim(),
       });
-      showSuccess(`Category "${formName.trim()}" created successfully`);
+      showSuccess(`Đã tạo danh mục "${formName.trim()}"`);
       setIsCreateOpen(false);
       fetchCategories();
     } catch (err) {
-      showError(err.message || 'Failed to create category');
+      showError(err.message || 'Không thể tạo danh mục');
     } finally {
       setSubmitting(false);
     }
@@ -86,7 +86,7 @@ export const CategoriesPage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     if (!formName.trim()) {
-      showError('Category name is required');
+      showError('Vui lòng nhập tên danh mục');
       return;
     }
     setSubmitting(true);
@@ -95,11 +95,11 @@ export const CategoriesPage = () => {
         name: formName.trim(),
         description: formDescription.trim(),
       });
-      showSuccess(`Category "${formName.trim()}" updated successfully`);
+      showSuccess(`Đã cập nhật danh mục "${formName.trim()}"`);
       setIsEditOpen(false);
       fetchCategories();
     } catch (err) {
-      showError(err.message || 'Failed to update category');
+      showError(err.message || 'Không thể cập nhật danh mục');
     } finally {
       setSubmitting(false);
     }
@@ -109,11 +109,11 @@ export const CategoriesPage = () => {
     setSubmitting(true);
     try {
       await categoryApi.delete(selectedCategory.id);
-      showSuccess(`Category "${selectedCategory.name}" deleted successfully`);
+      showSuccess(`Đã xóa danh mục "${selectedCategory.name}"`);
       setIsDeleteOpen(false);
       fetchCategories();
     } catch (err) {
-      showError(err.message || 'Failed to delete category');
+      showError(err.message || 'Không thể xóa danh mục');
     } finally {
       setSubmitting(false);
     }
@@ -129,9 +129,9 @@ export const CategoriesPage = () => {
       {/* Header and Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Category Management</h1>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Quản lý danh mục</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Organize catalog topics and metadata classifications.
+            Sắp xếp các chủ đề để thư viện dễ tìm và dễ quản lý.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -139,7 +139,7 @@ export const CategoriesPage = () => {
             onClick={fetchCategories}
             disabled={loading}
             className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-800 transition-colors"
-            title="Refresh list"
+            title="Làm mới danh sách"
           >
             <RefreshIcon className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -148,7 +148,7 @@ export const CategoriesPage = () => {
             className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2"
           >
             <PlusIcon className="w-4 h-4" />
-            <span>Add Category</span>
+            <span>Thêm danh mục</span>
           </button>
         </div>
       </div>
@@ -160,7 +160,7 @@ export const CategoriesPage = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Filter categories by title or description..."
+          placeholder="Tìm theo tên hoặc mô tả danh mục..."
           className="bg-transparent border-none w-full text-slate-100 text-sm placeholder-slate-500 focus:outline-none"
         />
         {searchTerm && (
@@ -168,7 +168,7 @@ export const CategoriesPage = () => {
             onClick={() => setSearchTerm('')}
             className="text-xs text-slate-400 hover:text-slate-200 px-2 py-1 bg-slate-800 rounded-md"
           >
-            Clear
+            Xóa lọc
           </button>
         )}
       </div>
@@ -183,17 +183,17 @@ export const CategoriesPage = () => {
         ) : filteredCategories.length === 0 ? (
           <div className="py-16 text-center text-slate-500">
             <FolderIcon className="w-10 h-10 mx-auto mb-3 text-slate-600" />
-            <p className="text-sm font-medium">No categories found matching your query.</p>
+            <p className="text-sm font-medium">Không tìm thấy danh mục phù hợp.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-slate-900/80 text-slate-400 text-xs font-semibold uppercase tracking-wider border-b border-slate-800">
                 <tr>
-                  <th className="py-3.5 px-6">Category Name</th>
-                  <th className="py-3.5 px-6">Description</th>
-                  <th className="py-3.5 px-6">Category ID</th>
-                  <th className="py-3.5 px-6 text-right">Actions</th>
+                  <th className="py-3.5 px-6">Tên danh mục</th>
+                  <th className="py-3.5 px-6">Mô tả</th>
+                  <th className="py-3.5 px-6">Mã số</th>
+                  <th className="py-3.5 px-6 text-right">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 text-slate-200">
@@ -206,7 +206,7 @@ export const CategoriesPage = () => {
                       <span>{cat.name}</span>
                     </td>
                     <td className="py-4 px-6 text-slate-400 max-w-md truncate">
-                      {cat.description || 'No description provided.'}
+                      {cat.description || 'Chưa có mô tả.'}
                     </td>
                     <td className="py-4 px-6 font-mono text-xs text-slate-500">
                       #{cat.id}
@@ -215,14 +215,14 @@ export const CategoriesPage = () => {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openEditModal(cat)}
-                          title="Edit Category"
+                          title="Sửa danh mục"
                           className="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-800 rounded-lg transition-colors"
                         >
                           <EditIcon className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => openDeleteModal(cat)}
-                          title="Delete Category"
+                          title="Xóa danh mục"
                           className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition-colors"
                         >
                           <TrashIcon className="w-4 h-4" />
@@ -241,12 +241,12 @@ export const CategoriesPage = () => {
       <Modal
         isOpen={isCreateOpen}
         onClose={() => setIsCreateOpen(false)}
-        title="Create New Category"
+        title="Tạo danh mục mới"
       >
         <form onSubmit={handleCreate} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Category Name *
+              Tên danh mục *
             </label>
             <input
               type="text"
@@ -259,7 +259,7 @@ export const CategoriesPage = () => {
           </div>
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Description
+              Mô tả
             </label>
             <textarea
               value={formDescription}
@@ -275,14 +275,14 @@ export const CategoriesPage = () => {
               onClick={() => setIsCreateOpen(false)}
               className="px-4 py-2 text-sm font-medium text-slate-400 hover:text-slate-200"
             >
-              Cancel
+              Hủy
             </button>
             <button
               type="submit"
               disabled={submitting}
               className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors"
             >
-              {submitting ? 'Creating...' : 'Create Category'}
+              {submitting ? 'Đang tạo...' : 'Tạo danh mục'}
             </button>
           </div>
         </form>
@@ -292,12 +292,12 @@ export const CategoriesPage = () => {
       <Modal
         isOpen={isEditOpen}
         onClose={() => setIsEditOpen(false)}
-        title="Edit Category"
+        title="Sửa danh mục"
       >
         <form onSubmit={handleUpdate} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Category Name *
+              Tên danh mục *
             </label>
             <input
               type="text"
@@ -309,7 +309,7 @@ export const CategoriesPage = () => {
           </div>
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Description
+              Mô tả
             </label>
             <textarea
               value={formDescription}
@@ -324,14 +324,14 @@ export const CategoriesPage = () => {
               onClick={() => setIsEditOpen(false)}
               className="px-4 py-2 text-sm font-medium text-slate-400 hover:text-slate-200"
             >
-              Cancel
+              Hủy
             </button>
             <button
               type="submit"
               disabled={submitting}
               className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors"
             >
-              {submitting ? 'Saving Changes...' : 'Save Changes'}
+              {submitting ? 'Đang lưu...' : 'Lưu thay đổi'}
             </button>
           </div>
         </form>
@@ -347,7 +347,7 @@ export const CategoriesPage = () => {
         <div className="space-y-4">
           <p className="text-sm text-slate-300">
             Are you sure you want to delete category{' '}
-            <span className="font-bold text-white">"{selectedCategory?.name}"</span>?
+            <span className="font-bold text-[#193431]">"{selectedCategory?.name}"</span>?
           </p>
           <p className="text-xs text-amber-400/90 bg-amber-500/10 p-3 rounded-xl border border-amber-500/20">
             Warning: Removing this category may disassociate existing books and videos assigned to it.

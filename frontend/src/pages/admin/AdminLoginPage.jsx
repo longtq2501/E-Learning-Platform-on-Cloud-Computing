@@ -18,7 +18,7 @@ export const AdminLoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      showError('Please enter both email and password');
+      showError('Vui lòng nhập email và mật khẩu');
       return;
     }
 
@@ -26,14 +26,14 @@ export const AdminLoginPage = () => {
     try {
       const user = await login(email, password);
       if (user.role !== 'ADMIN') {
-        showError('Access denied: Account is not an administrator');
+        showError('Tài khoản này không có quyền quản trị');
         setLoading(false);
         return;
       }
-      showSuccess(`Welcome back, ${user.fullName}`);
+      showSuccess(`Chào mừng trở lại, ${user.fullName}`);
       navigate(from, { replace: true });
     } catch (err) {
-      showError(err.message || 'Login failed. Please verify credentials.');
+      showError(err.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
     } finally {
       setLoading(false);
     }
@@ -46,19 +46,16 @@ export const AdminLoginPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 selection:bg-indigo-500 selection:text-white relative overflow-hidden">
-      {/* Background glowing gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="w-full max-w-md relative z-10">
         {/* Header Branding */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600 shadow-xl shadow-indigo-600/30 text-white font-extrabold text-xl mb-4 border border-indigo-400/30">
             EL
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Admin Back-Office</h1>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 mb-2">Cloud Learning</p>
+          <h1 className="text-2xl font-bold text-[#193431] tracking-tight">Đăng nhập quản trị</h1>
           <p className="text-slate-400 text-sm mt-1.5">
-            Cloud E-Learning Platform Administration Portal
+            Quản lý học liệu và nội dung đào tạo
           </p>
         </div>
 
@@ -67,7 +64,7 @@ export const AdminLoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                Administrator Email
+                Email quản trị
               </label>
               <input
                 type="email"
@@ -81,7 +78,7 @@ export const AdminLoginPage = () => {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-                Password
+                Mật khẩu
               </label>
               <input
                 type="password"
@@ -101,12 +98,12 @@ export const AdminLoginPage = () => {
               {loading ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Authenticating...</span>
+                  <span>Đang xác thực...</span>
                 </>
               ) : (
                 <>
                   <ShieldIcon className="w-4 h-4" />
-                  <span>Sign In as Administrator</span>
+                  <span>Đăng nhập quản trị</span>
                 </>
               )}
             </button>
@@ -115,7 +112,7 @@ export const AdminLoginPage = () => {
           {/* Quick Demo Credentials */}
           <div className="mt-6 pt-6 border-t border-slate-800">
             <p className="text-xs text-slate-400 font-medium mb-3 text-center">
-              Quick Demo Credentials:
+              Tài khoản demo nhanh
             </p>
             <div className="flex gap-2">
               <button
@@ -123,14 +120,14 @@ export const AdminLoginPage = () => {
                 onClick={() => fillCredentials('admin@elearning.com', 'admin123')}
                 className="flex-1 py-2 px-3 bg-slate-800 hover:bg-slate-750 hover:bg-slate-700/80 text-xs font-medium text-slate-300 rounded-lg border border-slate-700 transition-colors text-center"
               >
-                Default Admin
+                Quản trị viên
               </button>
               <button
                 type="button"
                 onClick={() => fillCredentials('teacher@elearning.com', 'admin123')}
                 className="flex-1 py-2 px-3 bg-slate-800 hover:bg-slate-750 hover:bg-slate-700/80 text-xs font-medium text-slate-300 rounded-lg border border-slate-700 transition-colors text-center"
               >
-                Teacher Admin
+                Giáo viên
               </button>
             </div>
           </div>
@@ -139,7 +136,7 @@ export const AdminLoginPage = () => {
         {/* Security Notice */}
         <div className="mt-6 text-center text-xs text-slate-500 flex items-center justify-center gap-2">
           <ServerIcon className="w-4 h-4 text-slate-400" />
-          <span>Stateless JWT Authentication via Spring Security 6</span>
+          <span>Đăng nhập JWT bảo mật với Spring Security 6</span>
         </div>
       </div>
     </div>
